@@ -3,16 +3,16 @@ import { useEffect } from 'react';
 import {
   deleteContacts,
   fetchContacts,
-} from '../../redux/operations/contacts/contactsOperations';
+} from '../../redux/contacts/contactsOperations';
 import {
   selectIsLoading,
   selectIsError,
-  selectTasks,
-} from '../../redux/operations/contacts/contactsSelector';
+  selectContacts,
+} from '../../redux/contacts/contactsSelector';
 import { Loader } from '../Loader/Loader';
 
 export const TaskForm = () => {
-  const contacts = useSelector(selectTasks);
+  const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
 

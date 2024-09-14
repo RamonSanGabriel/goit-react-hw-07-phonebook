@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { deleteContact } from '../../redux/operations/contacts/contactsSlice';
+import { deleteContact } from '../../redux/contacts/contactsSlice';
 
 export const ContactListItem = ({ filteredContact }) => {
   const dispatch = useDispatch();

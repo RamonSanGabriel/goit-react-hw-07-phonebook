@@ -1,45 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, deleteContacts } from './contactsOperations';
+import {
+  fetchContacts,
+  deleteContacts,
+  addContacts,
+} from './contactsOperations';
 
 const handlePending = state => {
   state.isLoading = true;
-  state.isError = false;
+  // state.isError = false;
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
-  state.isError = action.payload;
+  state.isError = action.e.message;
 };
 
 const handleFetchFulfilled = (state, action) => {
   state.isLoading = false;
-  state.isError = false;
+  state.isError = null;
   state.items = action.payload;
 };
 
-/* const handleAddFulfilled = (state, action) => {
+const handleAddFulfilled = (state, action) => {
   state.isLoading = false;
-  state.isError = false;
+  state.isError = null;
   state.items.push(action.payload);
-}; */
+};
 
 const handleDeleteFulfilled = (state, action) => {
-  state.items.filter(item => item.id !== action.payload);
+  state.isLoading = false;
+  state.isError = null;
+  state.items = state.items.filter(item => item.id !== action.payload.id);
 };
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     items: [],
     isLoading: false,
-    isError: false,
+    isError: null,
   },
+  // reducers: {},
   extraReducers: builder =>
     builder
       .addCase(fetchContacts.pending, handlePending)
-      .addCase(fetchContacts.fulfilled, handleFetchFulfilled)
       .addCase(fetchContacts.rejected, handleRejected)
+      .addCase(fetchContacts.fulfilled, handleFetchFulfilled)
+      .addCase(addContacts.pending, handlePending)
+      .addCase(addContacts.rejected, handleRejected)
+      .addCase(addContacts.fulfilled, handleAddFulfilled)
       .addCase(deleteContacts.pending, () => {})
-      .addCase(deleteContacts.fulfilled, handleDeleteFulfilled)
-      .addCase(deleteContacts.rejected, handleRejected),
+      .addCase(deleteContacts.rejected, handleRejected)
+      .addCase(deleteContacts.fulfilled, handleDeleteFulfilled),
 });
 
 export const { addContact, deleteContact } = contactsSlice.actions;

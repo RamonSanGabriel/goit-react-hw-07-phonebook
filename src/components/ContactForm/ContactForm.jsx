@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import css from './ContactForm.module.css';
-import { selectTasks } from '../../redux/operations/contacts/contactsSelector';
-import { addContacts } from '../../redux/operations/contacts/contactsOperations';
+import { selectContacts } from '../../redux/contacts/contactsSelector';
+import { addContacts } from '../../redux/contacts/contactsOperations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectTasks);
+  const contacts = useSelector(selectContacts);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -38,10 +38,10 @@ export const ContactForm = () => {
       return;
     }
     // dispatch(addContacts({ name: name, number: number }));
-    dispatch(addContacts(name, number));
-    Notify.success(`${name} was successfully added`, {
+    /*   Notify.success(`${name} was successfully added`, {
       position: 'right-top',
-    });
+    }); */
+    dispatch(addContacts({ name, number }));
 
     // Reset Form Fields upon submitting
     setName('');
