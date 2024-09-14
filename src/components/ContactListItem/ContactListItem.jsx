@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { deleteContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/operations/contacts/contactsSlice';
 
 export const ContactListItem = ({ filteredContact }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
+  const handleDeleteFulfilled = () => {
     dispatch(deleteContact(filteredContact.id));
     Notify.success(`${filteredContact.name} was deleted`, {
-      position: 'right-top',
+      position: 'right-bottom',
     });
   };
 
@@ -17,7 +17,7 @@ export const ContactListItem = ({ filteredContact }) => {
     <li>
       <p>{filteredContact.name}:</p>
       <p>{filteredContact.number}</p>
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleDeleteFulfilled}>Delete</button>
     </li>
   );
 };
