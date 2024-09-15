@@ -38,9 +38,9 @@ export const ContactForm = () => {
       return;
     }
     // dispatch(addContacts({ name: name, number: number }));
-    /*   Notify.success(`${name} was successfully added`, {
+    Notify.success(`${name} was successfully added`, {
       position: 'right-top',
-    }); */
+    });
     dispatch(addContacts({ name, number }));
 
     // Reset Form Fields upon submitting
